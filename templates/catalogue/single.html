@@ -1,0 +1,85 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block stylesheet %}{% static 'store/css/store.css' %}{% endblock %}
+{% block title %}
+{% if product %}{{ product.title }}{% else %}Product{% endif %}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+{% if messages %}
+<div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+{% for message in messages  %}
+  {{message|safe}} - <a href="{% url "account:wishlist" %}" class="alert-link">Your Wishlist</a>.
+{% endfor %}
+</div>
+{% endif %}
+  <div class="row g-3">
+    <div class="col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+      <div class="d-grid gap-2">
+        <div class="d-flex d-flex-inline justify-content-between">
+          <div><span class="h3">£{{ product.regular_price }}</span>
+            <p class="text-muted">includes tax</p>
+          </div>
+          <div>
+            <label for="select">Qty</label>
+            <select id="select" class="h6 store-select-dropdown">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Get Quote</button>
+        <a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-light fw500" role="button" aria-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" style="fill: darkred;" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></a>
+      </div>
+    </div>
+    <div class="col-md-7 col-lg-7 p-0">
+      <div class="card mb-3 border-0">
+        <div class="row g-0">
+          <div class="col-md-12">
+            <div class="card-body p-1">
+              <h1 class="mb-0 h2 pe-4 pb-4">{{ product.title }}</h1>
+              <div class="bg-light">
+
+                {% for image in product.product_image.all %}
+                {% if image.is_feature %}
+                <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ image.image.url }}"
+                  alt="{{ image.image.alt_text }}">
+                {% else %}
+                <img class="img-fluid d-block-inline pt-3" width="100px" alt="Responsive image"
+                  src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+                {% endif %}
+                {% endfor %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).on('click', '#add-button', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '{% url "basket:basket_add" %}',
+        data: {
+          productid: $('#add-button').val(),
+          productqty: $('#select option:selected').text(),
+          csrfmiddlewaretoken: "{{csrf_token}}",
+          action: 'post'
+        },
+        success: function (json) {
+          document.getElementById("basket-qty").innerHTML = json.qty
+        },
+        error: function (xhr, errmsg, err) {}
+      });
+    })
+  </script>
+
+  {% endblock %}

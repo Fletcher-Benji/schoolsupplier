@@ -1,0 +1,23 @@
+{
+  "name": "schoolsupplier-django-ecommerce",
+  "keywords": [
+    "e-commerce",
+    "ecommerce",
+    "django",
+    "python"
+  ],
+  "image": "heroku/python",
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "ecommerce.settings",
+    "DEBUG": "True",
+    "ALLOWED_HOSTS": {
+      "value": ".herokuapp.com"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python.git"
+    }
+  ],
+  "success_url": "/"
+}
