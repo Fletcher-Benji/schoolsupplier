@@ -1,4 +1,4 @@
-{% extends "../base.html" %}
+ {% extends "../base.html" %}
 {% block title %}
 {% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
@@ -33,7 +33,7 @@
                 <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
               </p>
               <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">£{{product.regular_price}}</small>
+                <!--<small class="text-muted">£{{product.regular_price}}</small>-->
               </div>
             </div>
           </div>

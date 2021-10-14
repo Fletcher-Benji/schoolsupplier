@@ -185,8 +185,14 @@ text-decoration: none;
     height: 20px;
 }
 
-@media screen and (max-width: 570px){
+a:link {
+    text-decoration: none;
+  }
+  
+
+@media screen and (max-width: 570px){ 
 .shop-category {
+    text-decoration: none;
     color: rgba(0, 0, 0);
 	display: grid;
     grid-template-columns: 1fr 1fr; 
@@ -211,8 +217,6 @@ text-decoration: none;
     width: 1px;
 
 }
-    
-}
 
 .center {
 	max-width: 1200px;
@@ -221,6 +225,7 @@ text-decoration: none;
 
 .center-text {
     text-align: center;
+}
 }
 
 /* carousel */
@@ -328,6 +333,18 @@ hr {
     margin-left: auto;
     margin-right: auto;
     left: 0;
-    right: 0;
     text-align: center;
 }
+
+/*Img replace */
+
+.img-replace {
+width: 180px;
+  }
+  .img-replace:hover {
+   position: absolute;
+   width: 800px;
+   margin-top: -300px;
+   border-style: solid;
+  }
+    

@@ -18,22 +18,34 @@
     <div class="col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
       <div class="d-grid gap-2">
         <div class="d-flex d-flex-inline justify-content-between">
-          <div><span class="h3">£{{ product.regular_price }}</span>
-            <p class="text-muted">includes tax</p>
+          <div><!--<span class="h3">£{{ product.regular_price }}</span>-->
+            <!--<p class="text-muted">includes tax</p>-->
           </div>
           <div>
-            <label for="select">Qty</label>
+            <!--<label for="select">Qty</label>
             <select id="select" class="h6 store-select-dropdown">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
-            </select>
+            </select>-->
           </div>
+        
         </div>
+        <p class="card-text">{{product.description}}</p> <p style="font-size: 14px;">If you are interested in this product and want the best price please click below to Email us or give us a Call.</p> 
+        <p style="font-size: 14px;">*please allow for 24 hours during the working week for a reply.</p>
         <hr>
-        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Get Quote</button>
-        <a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-light fw500" role="button" aria-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" style="fill: darkred;" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></a>
+        <a type="button" role="button" href="mailto:info@schoolsupplier.co.uk?&subject=Get%20a%20Quote%20on%20{{ product.title }}&body=Hello%20School%20Supplier,%20Im%20interested%20in%20getting%20a%20quote%20on%20{{ product.title }}'s"
+          class="btn btn-success fw500">
+
+
+        <div style="icons">
+          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+        </div>
+        <span class="fs15 fw300" style="color: white;">Email</span>
+        </a>
+
+        <a href="tel:01704-871-901" class="btn btn-light fw500" role="button" aria-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" style="fill: black;" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6.54 5c.06.89.21 1.76.45 2.59l-1.2 1.2c-.41-1.2-.67-2.47-.76-3.79h1.51m9.86 12.02c.85.24 1.72.39 2.6.45v1.49c-1.32-.09-2.59-.35-3.8-.75l1.2-1.19M7.5 3H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.49c0-.55-.45-1-1-1-1.24 0-2.45-.2-3.57-.57-.1-.04-.21-.05-.31-.05-.26 0-.51.1-.71.29l-2.2 2.2c-2.83-1.45-5.15-3.76-6.59-6.59l2.2-2.2c.28-.28.36-.67.25-1.02C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1z"/></svg></svg></a>
       </div>
     </div>
     <div class="col-md-7 col-lg-7 p-0">
@@ -43,14 +55,19 @@
             <div class="card-body p-1">
               <h1 class="mb-0 h2 pe-4 pb-4">{{ product.title }}</h1>
               <div class="bg-light">
-
+<br>  <!--products-->
                 {% for image in product.product_image.all %}
                 {% if image.is_feature %}
-                <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ image.image.url }}"
+                <a class="lightbox" href="#dog"></a>
+                <img class="productimg img-fluid mx-auto d-block rounded" width="550px" alt="Responsive image" src="{{ image.image.url }}"
                   alt="{{ image.image.alt_text }}">
+                </a> 
+
                 {% else %}
-                <img class="img-fluid d-block-inline pt-3" width="100px" alt="Responsive image"
+              
+                <img class="img-replace" alt="Responsive image"
                   src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+
                 {% endif %}
                 {% endfor %}
 
@@ -62,7 +79,38 @@
     </div>
   </div>
 
+  {% for image in product.product_image.all %}
+  {% if image.is_feature %}
+
+</div>
+{% endif %}
+{% endfor %}
+
+<script src="clicker.js"></script>
+
   <script>
+    function currentDiv(n) {
+      showDivs(slideIndex = n);
+    }
+    
+    function showDivs(n) {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("demo");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length}
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+      }
+      x[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " w3-opacity-off";
+    }
+    </script>
+
+ <!-- <script>
     $(document).on('click', '#add-button', function (e) {
       e.preventDefault();
       $.ajax({
@@ -81,5 +129,5 @@
       });
     })
   </script>
-
+--->
   {% endblock %}
